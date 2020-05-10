@@ -17,16 +17,4 @@ lotus wallet set-default `lotus wallet list`  && lotus wallet balance
 
 lotus-storage-miner init --genesis-miner --actor=t01000 --sector-size=2048 --pre-sealed-sectors=~/.genesis-sectors --pre-sealed-metadata=~/.genesis-sectors/pre-seal-t01000.json --nosync
 
-nohup lotus-storage-miner run --nosync --enable-gpu-proving=true > /home/miner.log 2>&1 &
-
-
-echo "Balance:"
-lotus wallet balance
-
-echo "Peers:"
-lotus net peers
-
-echo "Listening:"
-lotus net listen
-
-echo "Good job ~"
+lotus-storage-miner run --nosync --enable-gpu-proving=true 2>&1 | tee -a /home/miner.log
