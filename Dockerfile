@@ -13,6 +13,17 @@ RUN mkdir ~/.ssh && chmod 755 ~/.ssh && \
 
 FROM ubuntu:18.04
 
+COPY setup-local.sh /usr/local/bin/
+
+RUN chmod +x /usr/local/bin/setup-local.sh && \
+    apt-get update && apt-get -y install software-properties-common && \
+    apt-get update && \
+    add-apt-repository ppa:longsleep/golang-backports && \
+    apt-get update && apt-get -y install  mesa-opencl-icd ocl-icd-opencl-dev && \
+    apt-get purge -y software-properties-common && \
+    apt-get autoremove -y && apt-get clean -y && apt-get autoclean -y && \
+    rm -rf /var/lib/apt/lists/*
+
 ENV IPFS_GATEWAY https://proof-parameters.s3.cn-south-1.jdcloud-oss.com/ipfs/
 ENV FIL_PROOFS_PARAMETER_CACHE /home/filecoin-proof-parameters
 ENV TMPDIR /home/tmp
@@ -41,14 +52,5 @@ COPY --from=builder /home/lotus/lotus                 /usr/local/bin/
 COPY --from=builder /home/lotus/lotus-storage-miner   /usr/local/bin/
 COPY --from=builder /home/lotus/lotus-seal-worker     /usr/local/bin/
 COPY --from=builder /home/lotus/lotus-seed            /usr/local/bin/
-
-COPY setup-local.sh /usr/local/bin/
-
-RUN chmod +x /usr/local/bin/setup-local.sh && \
-    apt-get update && apt-get -y install software-properties-common && \
-    apt-get update && \
-    add-apt-repository ppa:longsleep/golang-backports && \
-    apt-get update && apt-get -y install  mesa-opencl-icd ocl-icd-opencl-dev && \
-    rm -rf /var/lib/apt/lists/*
 
 CMD ["cd /home/ && mkdir tmp"]
