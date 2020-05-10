@@ -52,5 +52,3 @@ COPY --from=builder /home/lotus/lotus                 /usr/local/bin/
 COPY --from=builder /home/lotus/lotus-storage-miner   /usr/local/bin/
 COPY --from=builder /home/lotus/lotus-seal-worker     /usr/local/bin/
 COPY --from=builder /home/lotus/lotus-seed            /usr/local/bin/
-
-CMD ["cd /home/ && mkdir tmp"]

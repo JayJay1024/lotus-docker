@@ -1,5 +1,8 @@
 #!/bin/bash
 
+cd /home
+mkdir tmp
+
 lotus-seed pre-seal --sector-size 2048 --num-sectors 2
 
 lotus-seed genesis new localnet.json && lotus-seed genesis add-miner localnet.json ~/.genesis-sectors/pre-seal-t01000.json
