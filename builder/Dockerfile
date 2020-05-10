@@ -10,3 +10,5 @@ RUN ln -sf /bin/bash /bin/sh && \
  	apt-get update && \
  	apt-get install -y golang-go gcc git bzr jq pkg-config mesa-opencl-icd ocl-icd-opencl-dev && \
 	rm -rf /var/lib/apt/lists/*
+
+ENV PATH="/root/.cargo/bin:$PATH"
